@@ -18,22 +18,9 @@ public class Maker {
     @NotBlank(message = "El nombre del producto es obligatorio")
     private String name;
 
-    public Maker(Long id, String name) {
+    public Maker(Long id) {
         this.id = id;
-        this.name = name;
     }
     public Maker() {
-    }
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 }

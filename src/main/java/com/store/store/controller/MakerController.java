@@ -18,28 +18,28 @@ import com.store.store.repository.IMakerDao;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/makers")
 public class MakerController {
     @Autowired
     private IMakerDao makerRepository;
     
         
-    @GetMapping("makers")
+    @GetMapping("/")
     public List<Maker> getAllMakers() {
         return makerRepository.findAll();
     }
 
-     @PostMapping("makers")
+     @PostMapping("/create")
      public Maker createMaker(@Valid @RequestBody Maker maker) {
          return makerRepository.save(maker);
      }
 
-    @GetMapping("makers/{id}")
+    @GetMapping("/find/{id}")
     public Maker getMakerById(@PathVariable int id) {
         return makerRepository.findById(id).orElse(null);
     }
 
-    @PutMapping("makers/{id}")
+    @PutMapping("/update/{id}")
     public Maker updateMaker(@PathVariable int id, @RequestBody Maker updatedMaker) {
         Maker maker = makerRepository.findById(id).orElse(null);
 
@@ -51,7 +51,7 @@ public class MakerController {
         return null;
     }
 
-    @DeleteMapping("makers/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteMaker(@PathVariable int id) {
         makerRepository.deleteById(id);
     }

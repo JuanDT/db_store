@@ -14,44 +14,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.store.store.model.entities.Product;
 import com.store.store.repository.IProductDao;
+import com.store.store.service.ProductService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/products")
 public class ProductController {
     @Autowired
-    private IProductDao productRepository;
+    private ProductService productService;
 
-    @GetMapping("products")
+    @GetMapping("/")
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productService.getAllProducts();
     }
 
-    @PostMapping("products")
+    @PostMapping("/create")
     public Product createProduct(@RequestBody Product product) {
-        return productRepository.save(product);
+        return productService.createProduct(product);
     }
 
-    @GetMapping("products/{id}")
+    @GetMapping("/find/{id}")
     public Product getProductById(@PathVariable int id) {
-        return productRepository.findById(id).orElse(null);
+        return productService.getProductById(id);
     }
 
-    @PutMapping("products/{id}")
+    @PutMapping("/update/{id}")
     public Product updateProduct(@PathVariable int id, @RequestBody Product updatedProduct) {
-        Product product = productRepository.findById(id).orElse(null);
-
-        if (product != null) {
-            product.setName(updatedProduct.getName());
-            product.setPrice(updatedProduct.getPrice());
-            product.setCategory(updatedProduct.getCategory());
-            return productRepository.save(product);
-        }
-
-        return null;
+        return productService.updateProduct(id, updatedProduct);
     }
 
-    @DeleteMapping("products/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteProduct(@PathVariable int id) {
-        productRepository.deleteById(id);
+        productService.deleteProduct(id);
     }
 }
+
