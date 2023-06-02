@@ -16,27 +16,27 @@ import com.store.store.model.entities.Category;
 import com.store.store.repository.ICategoryDao;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("/api/v1")
 public class CategoryController {
     @Autowired
     private ICategoryDao categoryRepository;
 
-    @GetMapping("/")
+    @GetMapping("categories")
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping("categories")
     public Category createCategory(@RequestBody Category category) {
         return categoryRepository.save(category);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("categories/{id}")
     public Category getCategoryById(@PathVariable int id) {
         return categoryRepository.findById(id).orElse(null);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("categories/{id}")
     public Category updateCategory(@PathVariable int id, @RequestBody Category updatedCategory) {
         Category category = categoryRepository.findById(id).orElse(null);
 
@@ -49,7 +49,7 @@ public class CategoryController {
         return null;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("categories/{id}")
     public void deleteCategory(@PathVariable int id) {
         categoryRepository.deleteById(id);
     }

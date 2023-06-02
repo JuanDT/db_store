@@ -16,27 +16,27 @@ import com.store.store.model.entities.Product;
 import com.store.store.repository.IProductDao;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/v1")
 public class ProductController {
     @Autowired
     private IProductDao productRepository;
 
-    @GetMapping("/")
+    @GetMapping("products")
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    @PostMapping("/create")
+    @PostMapping("products")
     public Product createProduct(@RequestBody Product product) {
         return productRepository.save(product);
     }
 
-    @GetMapping("/find/{id}")
+    @GetMapping("products/{id}")
     public Product getProductById(@PathVariable int id) {
         return productRepository.findById(id).orElse(null);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("products/{id}")
     public Product updateProduct(@PathVariable int id, @RequestBody Product updatedProduct) {
         Product product = productRepository.findById(id).orElse(null);
 
@@ -50,7 +50,7 @@ public class ProductController {
         return null;
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("products/{id}")
     public void deleteProduct(@PathVariable int id) {
         productRepository.deleteById(id);
     }
